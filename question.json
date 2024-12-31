@@ -1,0 +1,62 @@
+[
+  {
+    "question": "HTML是什么的缩写？",
+    "options": ["HyperText Markup Language", "Hyperlinks and Text Markup Language", "Home Tool Markup Language"],
+    "answer": 0,
+    "explanation": "HTML是HyperText Markup Language的缩写，用于创建网页。"
+  },
+  {
+    "question": "CSS用于什么？",
+    "options": ["网页结构", "网页样式", "网页交互"],
+    "answer": 1,
+    "explanation": "CSS（Cascading Style Sheets）用于控制网页的样式和布局。"
+  },
+  {
+    "question": "JavaScript主要用于什么？",
+    "options": ["网页结构", "网页样式", "网页交互"],
+    "answer": 2,
+    "explanation": "JavaScript是一种脚本语言，主要用于实现网页的交互功能。"
+  },
+  {
+    "question": "以下哪个是HTML标签？",
+    "options": ["<div>", "{div}", "(div)"],
+    "answer": 0,
+    "explanation": "<div>是HTML标签，用于定义文档中的分区或节。"
+  },
+  {
+    "question": "以下哪个是CSS选择器？",
+    "options": ["#id", ".class", "tag"],
+    "answer": 1,
+    "explanation": ".class是CSS类选择器，用于选择具有特定class属性的元素。"
+  },
+  {
+    "question": "以下哪个是JavaScript事件？",
+    "options": ["onclick", "onstyle", "onlayout"],
+    "answer": 0,
+    "explanation": "onclick是JavaScript事件，当用户点击元素时触发。"
+  },
+  {
+    "question": "以下哪个是HTML5新增的元素？",
+    "options": ["<header>", "<div>", "<span>"],
+    "answer": 0,
+    "explanation": "<header>是HTML5新增的元素，用于定义文档或节的页眉。"
+  },
+  {
+    "question": "以下哪个是CSS3新增的属性？",
+    "options": ["border-radius", "font-size", "color"],
+    "answer": 0,
+    "explanation": "border-radius是CSS3新增的属性，用于设置元素的圆角。"
+  },
+  {
+    "question": "以下哪个是JavaScript框架？",
+    "options": ["React", "HTML", "CSS"],
+    "answer": 0,
+    "explanation": "React是一个用于构建用户界面的JavaScript库。"
+  },
+  {
+    "question": "以下哪个是HTML表单元素？",
+    "options": ["<input>", "<div>", "<span>"],
+    "answer": 0,
+    "explanation": "<input>是HTML表单元素，用于创建各种输入控件。"
+  }
+]
