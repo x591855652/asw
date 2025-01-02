@@ -1,84 +1,84 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
-  margin: 0;
-  padding: 20px;
-}
+document.addEventListener('DOMContentLoaded', function() {
+  const quizContainer = document.getElementById('quiz');
+  const resultsContainer = document.getElementById('results');
+  const submitButton = document.getElementById('submit');
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+  let questions = [];
+  let userAnswers = [];
 
-h1 {
-  text-align: center;
-  color: #333;
-}
+  // 加载题目
+  fetch('questions.json')
+    .then(response => response.json())
+    .then(data => {
+      questions = getRandomQuestions(data, 10);
+      displayQuestions(questions);
+    });
 
-.question {
-  margin-bottom: 20px;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
+  // 随机选择题目
+  function getRandomQuestions(allQuestions, count) {
+    const shuffled = allQuestions.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+  }
 
-.options {
-  margin-top: 10px;
-}
+  // 显示题目
+  function displayQuestions(questions) {
+    let output = '';
+    questions.forEach((question, index) => {
+      output += `
+        <div class="question">
+          <p>${index + 1}. ${question.question}</p>
+          <div class="options">
+            ${question.options.map((option, i) => `
+              <label class="option">
+                <input type="radio" name="question${index}" value="${i}">
+                ${option}
+              </label>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    });
+    quizContainer.innerHTML = output;
+  }
 
-.option {
-  margin: 5px 0;
-}
+  // 处理提交
+  submitButton.addEventListener('click', showResults);
 
-#submit {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-}
+  function showResults() {
+    userAnswers = [];
+    let score = 0;
 
-#submit:hover {
-  background-color: #0056b3;
-}
+    questions.forEach((question, index) => {
+      const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+      const isCorrect = selectedOption && selectedOption.value == question.answer;
+      userAnswers.push({
+        question: question.question,
+        selected: selectedOption ? selectedOption.value : null,
+        correct: question.answer,
+        isCorrect: isCorrect,
+        explanation: question.explanation
+      });
+      if (isCorrect) score++;
+    });
 
-#results {
-  margin-top: 20px;
-}
+    displayResults(userAnswers, score);
+  }
 
-.result-item {
-  padding: 10px;
-  margin: 5px 0;
-  border-radius: 4px;
-}
+  // 显示结果
+  function displayResults(answers, score) {
+    let output = '';
+    answers.forEach((answer, index) => {
+      output += `
+        <div class="result-item ${answer.isCorrect ? 'correct' : 'incorrect'}">
+          <p>${index + 1}. ${answer.question}</p>
+          <p>你的答案：${answer.selected !== null ? questions[index].options[answer.selected] : '未作答'}</p>
+          <p>正确答案：${questions[index].options[answer.correct]}</p>
+          <p class="explanation">解析：${answer.explanation}</p>
+        </div>
+      `;
+    });
 
-.correct {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-.incorrect {
-  background-color: #f8d7da;
-  color: #721c24;
-}
-
-.explanation {
-  margin-top: 5px;
-  font-size: 0.9em;
-  color: #666;
-}
-
-.score {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 1.2em;
-  font-weight: bold;
-}
+    output += `<div class="score">你的得分：${score}/${questions.length}</div>`;
+    resultsContainer.innerHTML = output;
+  }
+});
